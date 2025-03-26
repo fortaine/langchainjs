@@ -291,7 +291,7 @@ Workspaces:
       `git commit -m "all[minor]: bump deps on ${workspaceName} to ${versionString}"`
     );
     console.log("Pushing changes.");
-    execSyncWithErrorHandling(`git push -u origin ${newBranchName}`);
+    execSyncWithErrorHandling(`git push -u fork ${newBranchName}`);
     console.log(
       "🔗 Open %s and merge the bump-deps PR.",
       `\x1b[34mhttps://github.com/langchain-ai/langchainjs/compare/${newBranchName}?expand=1\x1b[0m`
@@ -337,7 +337,7 @@ function commitAndPushChanges(workspaceName, version, onlyPush) {
   console.log("Pushing changes...");
   // Pushes to the current branch
   execSyncWithErrorHandling(
-    "git push -u origin $(git rev-parse --abbrev-ref HEAD)"
+    "git push -u fork $(git rev-parse --abbrev-ref HEAD)"
   );
   console.log("Successfully committed and pushed changes.");
 }
@@ -354,7 +354,7 @@ function checkoutReleaseBranch() {
   if (currentBranch === MAIN_BRANCH || currentBranch === RELEASE_BRANCH) {
     console.log(`Checking out '${RELEASE_BRANCH}' branch.`);
     execSyncWithErrorHandling(`git checkout -B ${RELEASE_BRANCH}`);
-    execSyncWithErrorHandling(`git push -u origin ${RELEASE_BRANCH}`);
+    execSyncWithErrorHandling(`git push -u fork ${RELEASE_BRANCH}`);
   } else {
     throw new Error(
       `Current branch is not ${MAIN_BRANCH} or ${RELEASE_BRANCH}. Current branch: ${currentBranch}`
